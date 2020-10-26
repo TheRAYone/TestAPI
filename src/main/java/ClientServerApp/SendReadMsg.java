@@ -1,4 +1,4 @@
-package ClienServerApp;
+package ClientServerApp;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package ClienServerApp;
+package ClientServerApp;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
