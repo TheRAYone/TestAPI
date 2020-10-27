@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -15,6 +17,7 @@ public class TestTCP {
     private final String host = "127.0.0.1";
     private Socket clientSocket;
     private final SendReadMsg sendReadMsg = new SendReadMsg();
+    private final Logger log = LoggerFactory.getLogger(TestTCP.class);
 
     @BeforeEach
     public void beforeEach() throws IOException {
@@ -45,14 +48,16 @@ public class TestTCP {
     @DisplayName("StreamSocket")
     public void streamSocket(String message) throws IOException {
         if (message.isEmpty()) {
+            log.error("Message is Empty", new RuntimeException("Message is Empty"));
             throw new RuntimeException("Message is Empty");
         }
         sendReadMsg.sendMessage(clientSocket, message);
         String readMessage = sendReadMsg.readMessage(clientSocket);
         if (readMessage.contains(message)) {
-            System.out.println(readMessage);
+            log.info(readMessage);
         } else {
-            throw new RuntimeException("Error message\n" + readMessage);
+            log.error(readMessage, new RuntimeException("Error message"));
+            throw new RuntimeException("Error message");
         }
     }
 
