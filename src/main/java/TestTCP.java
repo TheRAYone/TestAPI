@@ -1,8 +1,8 @@
-package ClientServerApp;
-
+import ClientServerApp.SendReadMsg;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -46,6 +46,7 @@ public class TestTCP {
                     "111111111111111111111111111111111111111111111111111111111111111111\n"
     })
     @DisplayName("StreamSocket")
+    @Tag("TestServerSocket")
     public void streamSocket(String message) throws IOException {
         if (message.isEmpty()) {
             log.error("Message is Empty", new RuntimeException("Message is Empty"));
