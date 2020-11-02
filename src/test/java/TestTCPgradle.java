@@ -1,8 +1,6 @@
 import ClientServerApp.SendReadMsg;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -15,16 +13,16 @@ public class TestTCPgradle {
 
     private final int port = 6666;
     private final String host = "127.0.0.1";
-    private Socket clientSocket;
+    private static  Socket clientSocket;
     private final SendReadMsg sendReadMsg = new SendReadMsg();
     private final Logger log = LoggerFactory.getLogger(TestTCPgradle.class);
 
     @BeforeEach
-    public void beforeEach() throws IOException {
+    void beforeEach() throws IOException {
         clientSocket = new Socket(host, port);
     }
-
-    @ParameterizedTest
+    @Ignore
+    @ParameterizedTest(name = "Test streamSocket testString: ( {0} )")
     @ValueSource(strings = {
             "Privet, kak dela u tebya?",
             "0",
@@ -46,8 +44,8 @@ public class TestTCPgradle {
                     "111111111111111111111111111111111111111111111111111111111111111111\n"
     })
     @DisplayName("StreamSocket")
-    @Tag("TestServerSocket")
-    public void streamSocket(String message) throws IOException {
+    @Tag("UnitTest")
+    void streamSocket(String message) throws IOException {
         if (message.isEmpty()) {
             log.error("Message is Empty", new RuntimeException("Message is Empty"));
             throw new RuntimeException("Message is Empty");
@@ -62,8 +60,26 @@ public class TestTCPgradle {
         }
     }
 
+    @Test
+    @Tag("IntegrationTest")
+    void test2IntegrationTest(){
+        log.info("Test 2 - IntegrationTest");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void test3IntegrationTest(){
+        log.info("Test 3 - IntegrationTest");
+    }
+
+    @Test
+    @Tag("UnitTest")
+    void test4IntegrationTest(){
+        log.info("Test 4 - UnitTest");
+    }
+
     @AfterEach
-    public void afterEach() throws IOException {
+    void afterEach() throws IOException {
         clientSocket.close();
     }
 }
